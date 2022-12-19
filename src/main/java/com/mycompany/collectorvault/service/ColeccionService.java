@@ -2,18 +2,20 @@ package com.mycompany.collectorvault.service;
 
 import java.util.List;
 
+import com.mycompany.collectorvault.DTO.ColeccionDTO;
 import com.mycompany.collectorvault.entity.Coleccion;
 
 public interface ColeccionService {
 
-	public List<Coleccion> getColecciones();
+	public List<ColeccionDTO> getColecciones(int numeroDePagina,int medidaDePagina);
 
-	public void saveColeccion(Coleccion theColeccion);
+	public ColeccionDTO saveColeccion(ColeccionDTO theColeccionDTO);
 	
-	public Coleccion updateColeccion(Coleccion theColeccion);
+	public ColeccionDTO updateColeccion(ColeccionDTO theColeccionDTO);
 
 	public Coleccion getColeccion(int theId);
 
 	public void deleteColeccion(int theId);
+	
 	
 }

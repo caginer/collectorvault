@@ -75,6 +75,18 @@ public class Coleccion {
 	private List<Item> itemsDeLaColeccion;
 
 
+	public Coleccion(int coleccionId, String nombreCol, int valor, int numeroArticulos, Date fechaApertura,
+			int usuarioid, int plataforma, List<Item> itemsDeLaColeccion) {
+		this.coleccionId = coleccionId;
+		this.nombreCol = nombreCol;
+		this.valor = valor;
+		this.numeroArticulos = numeroArticulos;
+		this.fechaApertura = fechaApertura;
+		this.usuarioid = usuarioid;
+		this.plataforma = plataforma;
+		this.itemsDeLaColeccion = itemsDeLaColeccion;
+	}
+
 	public Coleccion(String nombreCol, int valor, int numeroArticulos, Date fechaApertura,
 			int usuario) {
 		this.nombreCol = nombreCol;
@@ -151,11 +163,11 @@ public class Coleccion {
 		this.usuarioid = usuarioid;
 	}
 
-	public List<Item> getitemsDeLaColeccion() {
+	public List<Item> getItemsDeLaColeccion() {
 		return itemsDeLaColeccion;
 	}
 
-	public void setitemsDeLaColeccion(List<Item> itemsDeLaColeccion) {
+	public void setItemsDeLaColeccion(List<Item> itemsDeLaColeccion) {
 		this.itemsDeLaColeccion = itemsDeLaColeccion;
 	}
 	

@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.collectorvault.exceptions.NotFoundException;
 import com.mycompany.collectorvault.service.ColeccionService;
 import com.mycompany.collectorvault.DAO.ColeccionDAO;
+import com.mycompany.collectorvault.DTO.ColeccionDTO;
 import com.mycompany.collectorvault.entity.Coleccion;
 import com.mycompany.collectorvault.entity.Item;
 
@@ -36,10 +38,12 @@ public class ColeccionRestController {
 	}
 	
 	@GetMapping("/coleccion")
-	public List <Coleccion> findAll(){
-		
-		return coleccionService.getColecciones() ;
-		
+	public List<ColeccionDTO> findAll(
+			@RequestParam(value = "pageNo", defaultValue = "0", required = false) int numeroDePagina,
+			@RequestParam(value = "pageSize", defaultValue = "10", required = false) int medidaDePagina) {
+
+		return coleccionService.getColecciones(numeroDePagina,medidaDePagina);
+
 	}
 	
 	@GetMapping("/coleccion/{coleccionId}")
@@ -50,33 +54,29 @@ public class ColeccionRestController {
 	}
 	
 	@PutMapping("/coleccion")
-	public Coleccion updateColeccion(@RequestBody Coleccion theColeccion) {
+	public ColeccionDTO updateColeccion(@RequestBody ColeccionDTO theColeccionDTO) {
 		
 		
-		Coleccion coleccion= new Coleccion();
+		ColeccionDTO coleccionDTO= new ColeccionDTO();
 		
-		coleccion =coleccionService.updateColeccion(theColeccion);
+		coleccionDTO =coleccionService.updateColeccion(theColeccionDTO);
 		
-		coleccionService.saveColeccion(coleccion);
+		coleccionService.saveColeccion(coleccionDTO);
 		
-		return coleccion;
+		return coleccionDTO;
 	}
 	
 	@PostMapping("/coleccion")
-	public Coleccion addColeccion (@RequestBody Coleccion theColeccion) {
-		
+	public ColeccionDTO addColeccion(@RequestBody ColeccionDTO theColeccionDTO) {
+
 		// also just in case they pass an id in json ... set id to 0
 		// this is to force a save of new item ... instead of update
-		
-		if (theColeccion.getColeccionId() != 0) {
-			
+
+		if (theColeccionDTO.getColeccionId() != 0) {
+			theColeccionDTO.setColeccionId(0);
 		}
-		
-		theColeccion.setColeccionId(0);
-		
-		coleccionService.saveColeccion(theColeccion);
-		
-		return theColeccion;
+
+		return coleccionService.saveColeccion(theColeccionDTO);
 	}
 	
 	@DeleteMapping("/coleccion/{coleccionId}")
