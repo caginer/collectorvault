@@ -1,13 +1,14 @@
 package com.mycompany.collectorvault.service;
 
-import java.util.List;
+
 
 import com.mycompany.collectorvault.DTO.ColeccionDTO;
+import com.mycompany.collectorvault.DTO.ColeccionRespuesta;
 import com.mycompany.collectorvault.entity.Coleccion;
 
 public interface ColeccionService {
 
-	public List<ColeccionDTO> getColecciones(int numeroDePagina,int medidaDePagina);
+	public ColeccionRespuesta getColecciones(int numeroDePagina,int medidaDePagina, String ordenarPor);
 
 	public ColeccionDTO saveColeccion(ColeccionDTO theColeccionDTO);
 	

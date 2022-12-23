@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.mycompany.collectorvault.DAO.ColeccionDAO;
 import com.mycompany.collectorvault.DTO.ColeccionDTO;
+import com.mycompany.collectorvault.DTO.ColeccionRespuesta;
 import com.mycompany.collectorvault.entity.Coleccion;
 import com.mycompany.collectorvault.entity.Item;
 
@@ -28,16 +29,25 @@ public class ColeccionServiceImpl implements ColeccionService {
 	
 	@Override
 	@Transactional
-	public List<ColeccionDTO> getColecciones(int numeroDePagina,int medidaDePagina) {
+	public ColeccionRespuesta getColecciones(int numeroDePagina,int medidaDePagina, String ordenarPor) {
 		
 		Pageable pageable = PageRequest.of(numeroDePagina,  medidaDePagina); 
 		
 		Page<Coleccion>laColeccion = coleccionDAO.findAll(pageable);
 		
 		List<Coleccion>listaLaColeccion = laColeccion.getContent();
+		List<ColeccionDTO> contenido = convertListEntityToDto(listaLaColeccion); 
 		
+		ColeccionRespuesta coleccionRespuesta = new ColeccionRespuesta();
 		
-		return convertListEntityToDto(listaLaColeccion);
+		coleccionRespuesta.setContenido(contenido);
+		coleccionRespuesta.setNumeroPagina(laColeccion.getNumber());
+		coleccionRespuesta.setMedidaPagina(laColeccion.getSize());
+		coleccionRespuesta.setTotalElementos(laColeccion.getTotalElements());
+		coleccionRespuesta.setTotalPaginas(laColeccion.getTotalPages());
+		coleccionRespuesta.setUltima(laColeccion.isLast());
+		
+		return coleccionRespuesta;
 		
 	}
 
@@ -49,7 +59,7 @@ public class ColeccionServiceImpl implements ColeccionService {
 		coleccion = convertDtoToEntity(theColeccionDTO);
 
 		coleccion = coleccionDAO.save(coleccion);
-		int id = coleccion.getColeccionId();
+		
 		//System.out.println(id); 
 		
 		return convertEntityToDto(coleccion);
