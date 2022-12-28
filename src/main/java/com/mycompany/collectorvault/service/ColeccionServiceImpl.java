@@ -6,10 +6,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +24,9 @@ import com.mycompany.collectorvault.entity.Item;
 
 @Service
 public class ColeccionServiceImpl implements ColeccionService {
+	
+	@Autowired
+	private ModelMapper modelMapper;
 
 	// need to inject Coleccion dao
 	@Autowired
@@ -29,9 +34,11 @@ public class ColeccionServiceImpl implements ColeccionService {
 	
 	@Override
 	@Transactional
-	public ColeccionRespuesta getColecciones(int numeroDePagina,int medidaDePagina, String ordenarPor) {
+	public ColeccionRespuesta getColecciones(int numeroDePagina,int medidaDePagina, String ordenarPor, String sortDir) {
 		
-		Pageable pageable = PageRequest.of(numeroDePagina,  medidaDePagina); 
+		Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name())?Sort.by(ordenarPor).ascending():Sort.by(ordenarPor).descending();
+		
+		Pageable pageable = PageRequest.of(numeroDePagina,  medidaDePagina, sort); 
 		
 		Page<Coleccion>laColeccion = coleccionDAO.findAll(pageable);
 		
@@ -124,34 +131,18 @@ public class ColeccionServiceImpl implements ColeccionService {
 				.collect(Collectors.toList());
 	}
 	
-	private static Coleccion convertDtoToEntity (ColeccionDTO theColeccionDTO) {
+	private Coleccion convertDtoToEntity (ColeccionDTO theColeccionDTO) {
 		
-		Coleccion coleccion = new Coleccion();
-		coleccion.setColeccionId(theColeccionDTO.getColeccionId());
-		coleccion.setNombreCol(theColeccionDTO.getNombreCol());
-		coleccion.setPlataforma(theColeccionDTO.getPlataforma());
-		coleccion.setUsuarioid(theColeccionDTO.getUsuarioid());
-		coleccion.setItemsDeLaColeccion(theColeccionDTO.getItemsDeLaColeccion());
-		coleccion.setFechaApertura(theColeccionDTO.getFechaApertura());
-		coleccion.setNumeroArticulos(theColeccionDTO.getNumeroArticulos());
-		coleccion.setValor(theColeccionDTO.getValor());
+		Coleccion coleccion = modelMapper.map(theColeccionDTO,Coleccion.class);
 		
 		return coleccion;
 		
 		
 	}
 	
-	private static ColeccionDTO convertEntityToDto (Coleccion theColeccion) {
+	private ColeccionDTO convertEntityToDto (Coleccion theColeccion) {
 		
-		ColeccionDTO coleccionDTO = new ColeccionDTO();
-		coleccionDTO.setColeccionId(theColeccion.getColeccionId());
-		coleccionDTO.setNombreCol(theColeccion.getNombreCol());
-		coleccionDTO.setPlataforma(theColeccion.getPlataforma());
-		coleccionDTO.setUsuarioid(theColeccion.getUsuarioid());
-		coleccionDTO.setItemsDeLaColeccion(theColeccion.getItemsDeLaColeccion());
-		coleccionDTO.setFechaApertura(theColeccion.getFechaApertura());
-		coleccionDTO.setNumeroArticulos(theColeccion.getNumeroArticulos());
-		coleccionDTO.setValor(theColeccion.getValor());
+		ColeccionDTO coleccionDTO = modelMapper.map(theColeccion,ColeccionDTO.class);
 		
 		return coleccionDTO;
 		

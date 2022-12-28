@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.collectorvault.service.ColeccionService;
-
+import com.mycompany.collectorvault.utilities.AppConstants;
 import com.mycompany.collectorvault.DTO.ColeccionDTO;
 import com.mycompany.collectorvault.DTO.ColeccionRespuesta;
 import com.mycompany.collectorvault.entity.Coleccion;
@@ -34,11 +34,12 @@ public class ColeccionRestController {
 
 	@GetMapping("/coleccion")
 	public ColeccionRespuesta findAll(
-			@RequestParam(value = "pageNo", defaultValue = "0", required = false) int numeroDePagina,
-			@RequestParam(value = "pageSize", defaultValue = "10", required = false) int medidaDePagina,
-			@RequestParam(value = "sortBy", defaultValue = "id", required = false) String ordenarPor) {
+			@RequestParam(value = "pageNo", defaultValue = AppConstants.NUMERO_DE_PAGINA_POR_DEFECTO, required = false) int numeroDePagina,
+			@RequestParam(value = "pageSize", defaultValue = AppConstants.MEDIDA_DE_PAGINA_POR_DEFECTO, required = false) int medidaDePagina,
+			@RequestParam(value = "sortBy", defaultValue = "coleccionId", required = false) String ordenarPor,
+			@RequestParam(value = "sortDir", defaultValue = AppConstants.ORDENAR_DIRECCION_POR_DEFECTO, required = false) String sortDir) {
 
-		return coleccionService.getColecciones(numeroDePagina, medidaDePagina, ordenarPor);
+		return coleccionService.getColecciones(numeroDePagina, medidaDePagina, ordenarPor, sortDir);
 
 	}
 
