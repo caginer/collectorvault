@@ -3,6 +3,9 @@ package com.mycompany.collectorvault.DTO;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.mycompany.collectorvault.entity.Item;
 
@@ -10,11 +13,21 @@ public class ColeccionDTO {
 	
 
 	private int coleccionId;
+	
+	@NotEmpty
+	@Size(min = 4, message = "El título de la publicación debe de tener mas de 4 caracteres")
 	private String nombreCol;
+	
 	private int valor;
 	private int numeroArticulos;
+	
+	@NotNull
 	private Date fechaApertura;
+	
+	@NotNull
 	private int usuarioid;
+	
+	@NotNull
 	private int plataforma;
 	private List<Item> itemsDeLaColeccion;
 	

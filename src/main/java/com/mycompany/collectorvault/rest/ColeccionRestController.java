@@ -1,5 +1,7 @@
 package com.mycompany.collectorvault.rest;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -51,7 +53,7 @@ public class ColeccionRestController {
 	}
 
 	@PutMapping("/coleccion")
-	public ColeccionDTO updateColeccion(@RequestBody ColeccionDTO theColeccionDTO) {
+	public ColeccionDTO updateColeccion(@Valid @RequestBody ColeccionDTO theColeccionDTO) {
 
 		ColeccionDTO coleccionDTO = new ColeccionDTO();
 
@@ -63,7 +65,7 @@ public class ColeccionRestController {
 	}
 
 	@PostMapping("/coleccion")
-	public ColeccionDTO addColeccion(@RequestBody ColeccionDTO theColeccionDTO) {
+	public ColeccionDTO addColeccion(@Valid @RequestBody ColeccionDTO theColeccionDTO) {
 
 		// also just in case they pass an id in json ... set id to 0
 		// this is to force a save of new item ... instead of update
