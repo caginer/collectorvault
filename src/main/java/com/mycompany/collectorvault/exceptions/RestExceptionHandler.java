@@ -53,6 +53,21 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 	}
 	
+	@ExceptionHandler
+	public ResponseEntity<ErrorResponse> handleNotVaultException (VaultException exc){
+		
+		
+		//create ErrorResponse
+		
+		ErrorResponse error = new ErrorResponse(
+											HttpStatus.NOT_FOUND.value(),
+											exc.getMensaje(),
+											System.currentTimeMillis());
+				
+		//return Response Entity
+		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+	}
+	
 	
 	// Add another exception handler to catch any exception
 	

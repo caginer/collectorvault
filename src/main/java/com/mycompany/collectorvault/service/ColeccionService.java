@@ -9,6 +9,8 @@ import com.mycompany.collectorvault.entity.Coleccion;
 public interface ColeccionService {
 
 	public ColeccionRespuesta getColecciones(int numeroDePagina,int medidaDePagina, String ordenarPor, String sortDir);
+	
+	public ColeccionRespuesta getColeccionesByUsername(int numeroDePagina,int medidaDePagina, String ordenarPor, String sortDir, String username);
 
 	public ColeccionDTO saveColeccion(ColeccionDTO theColeccionDTO);
 	

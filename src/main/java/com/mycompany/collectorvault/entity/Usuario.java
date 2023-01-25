@@ -35,7 +35,7 @@ public class Usuario {
 	private String nombre;
 
 	@Column(name = "password")
-	private int password;
+	private String password;
 
 	@Column(name = "apellidos")
 	private String apellidos;
@@ -106,6 +106,30 @@ public class Usuario {
 	public String toString() {
 		return "Usuario [usuarioId=" + usuarioId + ", nombre=" + nombre + ", apellidos=" + apellidos + ", email="
 				+ email + ", coleccion=" + coleccion + "]";
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Set<Rol> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Rol> roles) {
+		this.roles = roles;
 	}
 
 }

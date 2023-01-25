@@ -25,7 +25,7 @@ public class ColeccionDTO {
 	private Date fechaApertura;
 	
 	@NotNull
-	private int usuarioid;
+	private String username;
 	
 	@NotNull
 	private int plataforma;
@@ -71,12 +71,12 @@ public class ColeccionDTO {
 		this.fechaApertura = fechaApertura;
 	}
 
-	public int getUsuarioid() {
-		return usuarioid;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUsuarioid(int usuarioid) {
-		this.usuarioid = usuarioid;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public int getPlataforma() {
@@ -99,13 +99,13 @@ public class ColeccionDTO {
 	}
 
 	public ColeccionDTO(int coleccionId, String nombreCol, int valor, int numeroArticulos, Date fechaApertura,
-			int usuarioid, int plataforma, List<Item> itemsDeLaColeccion) {
+			String username, int plataforma, List<Item> itemsDeLaColeccion) {
 		this.coleccionId = coleccionId;
 		this.nombreCol = nombreCol;
 		this.valor = valor;
 		this.numeroArticulos = numeroArticulos;
 		this.fechaApertura = fechaApertura;
-		this.usuarioid = usuarioid;
+		this.username = username;
 		this.plataforma = plataforma;
 		this.itemsDeLaColeccion = itemsDeLaColeccion;
 	}

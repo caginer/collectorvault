@@ -3,7 +3,8 @@ package com.mycompany.collectorvault.rest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,9 +42,11 @@ public class ColeccionRestController {
 			@RequestParam(value = "sortBy", defaultValue = "coleccionId", required = false) String ordenarPor,
 			@RequestParam(value = "sortDir", defaultValue = AppConstants.ORDENAR_DIRECCION_POR_DEFECTO, required = false) String sortDir) {
 
+
 		return coleccionService.getColecciones(numeroDePagina, medidaDePagina, ordenarPor, sortDir);
 
 	}
+	
 
 	@GetMapping("/coleccion/{coleccionId}")
 	public Coleccion findById(@PathVariable int coleccionId) {
@@ -73,6 +76,7 @@ public class ColeccionRestController {
 		if (theColeccionDTO.getColeccionId() != 0) {
 			theColeccionDTO.setColeccionId(0);
 		}
+		System.out.println("---------" +theColeccionDTO.getUsername());
 
 		return coleccionService.saveColeccion(theColeccionDTO);
 	}
