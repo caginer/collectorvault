@@ -7,8 +7,6 @@ To run it correctly you will need to install the MYSQL database included in the 
 
 Just run as a springboot APP in any of your trusted IDE.
 
-Project contains openapi-ui extensión, you can access trought http://localhost:8080/swagger-ui/index.html when the API is running in local to test the functionality
-
 Current functions of the API are as follow:
 
 POST /api/coleccion >> Insert a new collection
