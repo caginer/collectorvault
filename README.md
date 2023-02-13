@@ -21,8 +21,10 @@ To get a working account it's needed to call "/api/auth/registrar", with the fol
 With a valid account is possible to start a session using "/api/auth/iniciarSesion", with the following JSON parameters.
 
 {
+
     "usernameOrEmail": "username",
     "password": "password"
+    
 }
 
 After starting a new session correctly the API will return a JWT token that let the user work with the API.
