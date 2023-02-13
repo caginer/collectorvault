@@ -56,7 +56,14 @@ GET /api/coleccion >> Get all collections stored in the system owned by the auth
 
 GET /api/coleccion?pageNo=x&pageSize=x&sortBy=coleccionId&sortDir=asc >> Get all collections stored in the system owned by the authorized user using
 "pageSize" to determine the number of pages that the system uses to distribute the collections, "pageNo" it's used to indicate to he system which page yoy want and 
-"sortBy" is used to specify which field is going to be used to sort the collections and sortDir states which direction will be used to present the items
+"sortBy" is used to specify which field is going to be used to sort the collections and sortDir states which direction will be used to present the items(asc for ascending, dsc for descending)
+Also for any GET response is included a summary with the following fields:
+    "numeroPagina": 1,(page number served)
+    "medidaPagina": 2,(how many items are included by page)
+    "totalElementos": 3,(total items included in the collection)
+    "totalPaginas": 2,(total number of pages in the response)
+    "ultima": true (a boolean to confirm if we are at the last page)
+
 
 GET /api/coleccion/{coleccionId} >> Get the specified {coleccionId} coleccion
 
