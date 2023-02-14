@@ -12,10 +12,12 @@ API uses JWT token authetification, you will need to get a token from the API to
 To get a working account it's needed to call "/api/auth/registrar", with the following JSON parameters.
 
 {
+
     "nombre" : "Insert full name here",
     "username" : "username",
     "email" : "xxx@gmail.com",
     "password" : "password"
+
 }
 
 With a valid account is possible to start a session using "/api/auth/iniciarSesion", with the following JSON parameters.
