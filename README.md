@@ -1,7 +1,7 @@
 # collectorvault
 Spring Boot restful API to manage a videogame collection.
 
-Create and manage your collection of videogames, As a WIP project will have some unused database fields.
+Create and manage your collection of videogames, As a WIP project it's possible to find some unused database fields.
 
 To run it correctly you will need to install the MYSQL database included in the "BBDD" folder.
 
@@ -21,9 +21,14 @@ With a valid account is possible to start a session using "/api/auth/iniciarSesi
     "usernameOrEmail": "username",
     "password": "password"
     
-After starting a new session correctly the API will return a JWT token that let the user work with the API. You need to use this token within the application.
+There is available a dummy account to see results directly, feel free to use for any of your needs.
 
-Current functions of the API are as follow:
+    "usernameOrEmail": "dummy",
+    "password": "dummy"
+    
+After starting a new session with a valid account, the API will return a JWT token that let the user to work within the API. Use the token to used ColeccionRestController
+
+Current functions of ColeccionRestController are as follow:
 
 POST /api/coleccion >> Insert a new collection using the JSON below:
             
@@ -31,7 +36,6 @@ POST /api/coleccion >> Insert a new collection using the JSON below:
       "valor": 0,
       "numeroArticulos": 0,
       "fechaApertura": "2015-12-11T23:00:00.000+00:00",
-            
       "plataforma": 4(only platform 4 exists at the moment),
       "itemsDeLaColeccion": [
            {
@@ -45,7 +49,7 @@ POST /api/coleccion >> Insert a new collection using the JSON below:
            }
          ]
 
-It's not mandatory to add any games upon creation of the collection. You can add (or delete) any games you want later using PUT command.
+It's not mandatory to add any games upon creation of the collection, you can add (or delete) any games you want later using PUT command.
 
 
 GET /api/coleccion >> Get all collections stored in the system owned by the authorized user.
