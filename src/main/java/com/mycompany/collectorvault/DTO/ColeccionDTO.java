@@ -24,7 +24,7 @@ public class ColeccionDTO {
 	@NotNull
 	private Date fechaApertura;
 	
-	@NotNull
+	
 	private String username;
 	
 	@NotNull

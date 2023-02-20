@@ -114,6 +114,13 @@ public class ColeccionServiceImpl implements ColeccionService {
 	public ColeccionDTO saveColeccion(ColeccionDTO theColeccionDTO) {
 
 		Coleccion coleccion = new Coleccion();
+		
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+         String username = userDetails.getUsername();
+         
+         theColeccionDTO.setUsername(username);
+		
 		coleccion = convertDtoToEntity(theColeccionDTO);
 
 		coleccion = coleccionDAO.save(coleccion);
