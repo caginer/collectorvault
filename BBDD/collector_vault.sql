@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 22-11-2022 a las 16:17:08
+-- Tiempo de generación: 20-02-2023 a las 18:18:14
 -- Versión del servidor: 5.7.31
--- Versión de PHP: 7.3.21
+-- Versión de PHP: 7.4.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -35,21 +35,25 @@ CREATE TABLE IF NOT EXISTS `coleccion` (
   `numero_articulos` int(11) DEFAULT NULL,
   `fecha_apertura` date DEFAULT NULL,
   `plataformaId` int(11) DEFAULT NULL,
-  `usuarioId` int(11) DEFAULT NULL,
+  `username` varchar(30) COLLATE latin1_spanish_ci DEFAULT NULL,
   `plataforma_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`coleccionid`),
-  KEY `usuarioId` (`usuarioId`),
   KEY `FKs42in8j8uoo5rjw4fdmeaxj3r` (`plataformaId`),
-  KEY `FKtkl3umy586fprb19mg3ligv3v` (`plataforma_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+  KEY `FKtkl3umy586fprb19mg3ligv3v` (`plataforma_id`),
+  KEY `username` (`username`)
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `coleccion`
 --
 
-INSERT INTO `coleccion` (`coleccionid`, `nombre_col`, `valor`, `numero_articulos`, `fecha_apertura`, `plataformaId`, `usuarioId`, `plataforma_id`) VALUES
-(1, 'Coleccion 1', 6785, 15, '2015-12-12', 4, 1, 4),
-(2, 'Coleccion 2', 6785, 15, '2015-12-12', 4, 1, 4);
+INSERT INTO `coleccion` (`coleccionid`, `nombre_col`, `valor`, `numero_articulos`, `fecha_apertura`, `plataformaId`, `username`, `plataforma_id`) VALUES
+(1, 'Coleccion 1', 6785, 15, '2015-12-12', 4, 'amzhit', 4),
+(2, 'Coleccion 2', 6785, 15, '2015-12-12', 4, 'amzhit', 4),
+(23, 'Superior Law', 6785, 0, '2015-12-12', 4, 'amzhit', NULL),
+(24, 'Superior Law', 6785, 0, '2015-12-12', 4, '', NULL),
+(25, 'Dummy GBA collection', 0, 0, '2015-12-12', 4, 'dummy', NULL),
+(26, 'Prueba GBA collection', 0, 0, '2015-12-12', 4, 'prueba', NULL);
 
 -- --------------------------------------------------------
 
@@ -71,7 +75,43 @@ CREATE TABLE IF NOT EXISTS `coleccion_item` (
 INSERT INTO `coleccion_item` (`itemid`, `coleccionid`) VALUES
 (1, 1),
 (3, 1),
-(922, 2);
+(922, 2),
+(1, 23),
+(2, 23),
+(3, 23),
+(4, 23),
+(32, 23),
+(45, 23),
+(46, 23),
+(46, 23),
+(47, 23),
+(1, 24),
+(2, 24),
+(3, 24),
+(4, 24),
+(32, 24),
+(45, 24),
+(46, 24),
+(46, 24),
+(47, 24),
+(1, 25),
+(2, 25),
+(3, 25),
+(4, 25),
+(32, 25),
+(45, 25),
+(46, 25),
+(46, 25),
+(47, 25),
+(1, 26),
+(2, 26),
+(3, 26),
+(4, 26),
+(32, 26),
+(45, 26),
+(46, 26),
+(46, 26),
+(47, 26);
 
 -- --------------------------------------------------------
 
@@ -119,37 +159,6 @@ INSERT INTO `imagenes` (`imagenid`, `itemid`, `imagelink`, `item_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `instructor`
---
-
-DROP TABLE IF EXISTS `instructor`;
-CREATE TABLE IF NOT EXISTS `instructor` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(45) DEFAULT NULL,
-  `last_name` varchar(45) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
-  `instructor_detail_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_DETAIL_idx` (`instructor_detail_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `instructor_detail`
---
-
-DROP TABLE IF EXISTS `instructor_detail`;
-CREATE TABLE IF NOT EXISTS `instructor_detail` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `youtube_channel` varchar(128) DEFAULT NULL,
-  `hobby` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `item`
 --
 
@@ -172,16 +181,12 @@ CREATE TABLE IF NOT EXISTS `item` (
 
 INSERT INTO `item` (`itemid`, `nombre`, `region`, `descripcion`, `developer`, `plataformaId`, `imagenid`) VALUES
 (1, 'Fire Emblem the Sacred Stones', 'PAL-UK', 'Guía a tus tropas, formadas por guerreros conocidos como los caballeros pegaso y nuevas incorporaciones como los jinetes magos, y ábrete camino por más de 20 niveles épicos a golpe de magia y espada.', 'Intelligent Systems', 4, NULL),
-(2, 'Fire Emblem', 'PAL-UK', 'Fire emblem es la primera entrega de este gran juego que apareció en Game Boy Advance, así como la primera aparición de la saga por tierras europeas.', 'Intelligent Systems', NULL, NULL),
+(2, 'Fire Emblem', 'PAL-UK', 'Fire emblem es la primera entrega de este gran juego que apareció en Game Boy Advance, así como la primera aparición de la saga por tierras europeas.', 'Intelligent Systems', 4, NULL),
 (3, 'Metroid Zero Mission', 'PAL-UK', 'Adaptación del célebre juego de la Gameboy para la Gameboy Advance', 'Nintendo', 4, NULL),
-(4, 'Metroid Fusion', 'PAL-UK', 'Nueva entrega de Metroid para la Gameboy Advance, aprovechando al máximo la potencia que esta ofrece en la creación de un juego nacido para revolucionar el género', 'Nintendo', NULL, NULL),
+(4, 'Metroid Fusion', 'PAL-UK', 'Nueva entrega de Metroid para la Gameboy Advance, aprovechando al máximo la potencia que esta ofrece en la creación de un juego nacido para revolucionar el género', 'Nintendo', 4, NULL),
 (5, 'Golden Sun', 'PAL-ES', 'Juego de rol de la mano de Camelot Software, adentrate en un mundo lleno de magia donde presenciaremos una historia que hará temblar los propios cimientos de la tierra.', 'Camelot Software', 4, NULL),
 (8, '007: Everything or Nothing', 'PAL-MULTI', NULL, NULL, 4, NULL),
 (9, '007: Nightfire', 'PAL-MULTI', NULL, NULL, 4, NULL),
-(10, NULL, 'PALA', NULL, NULL, NULL, NULL),
-(11, NULL, NULL, NULL, NULL, NULL, NULL),
-(12, NULL, NULL, NULL, NULL, NULL, NULL),
-(13, NULL, NULL, NULL, NULL, NULL, NULL),
 (14, '2 Games in 1: Sonic Advance + Sonic Pinball Party', 'PAL-MULTI', NULL, NULL, 4, NULL),
 (15, '2 Games in 1: Sonic Battle & Sonic Pinball', 'PAL-MULTI', NULL, NULL, 4, NULL),
 (16, '2006 FIFA World Cup', 'PAL-MULTI', NULL, NULL, 4, NULL),
@@ -911,11 +916,11 @@ INSERT INTO `item` (`itemid`, `nombre`, `region`, `descripcion`, `developer`, `p
 (740, 'Star Wars: Episode II Attack of the Clones', 'PAL-MULTI', NULL, NULL, 4, NULL),
 (741, 'Star Wars: Episode III Revenge of the Sith', 'PAL-MULTI', NULL, NULL, 4, NULL),
 (742, 'Star Wars: Flight of the Falcon', 'PAL-MULTI', NULL, NULL, 4, NULL),
-(743, 'Star Wars: Jedi Power Battles', 'PAL-MULTI', NULL, NULL, 4, NULL);
-INSERT INTO `item` (`itemid`, `nombre`, `region`, `descripcion`, `developer`, `plataformaId`, `imagenid`) VALUES
+(743, 'Star Wars: Jedi Power Battles', 'PAL-MULTI', NULL, NULL, 4, NULL),
 (744, 'Star Wars: The New Droid Army', 'PAL-MULTI', NULL, NULL, 4, NULL),
 (745, 'Star X', 'PAL-MULTI', NULL, NULL, 4, NULL),
-(746, 'Starsky & Hutch', 'PAL-MULTI', NULL, NULL, 4, NULL),
+(746, 'Starsky & Hutch', 'PAL-MULTI', NULL, NULL, 4, NULL);
+INSERT INTO `item` (`itemid`, `nombre`, `region`, `descripcion`, `developer`, `plataformaId`, `imagenid`) VALUES
 (747, 'Steel Empire', 'PAL-MULTI', NULL, NULL, 4, NULL),
 (748, 'Steven Gerrard\'s Total Soccer 2002', 'PAL-MULTI', NULL, NULL, 4, NULL),
 (749, 'Strawberry Shortcake: Ice Cream Island Riding Camp', 'PAL-MULTI', NULL, NULL, 4, NULL),
@@ -1169,40 +1174,71 @@ INSERT INTO `plataforma` (`plataformaId`, `numero_articulos_plat`, `valor`, `nom
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `rol`
+--
+
+DROP TABLE IF EXISTS `rol`;
+CREATE TABLE IF NOT EXISTS `rol` (
+  `rolid` bigint(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(60) COLLATE latin1_spanish_ci NOT NULL,
+  PRIMARY KEY (`rolid`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `rol`
+--
+
+INSERT INTO `rol` (`rolid`, `nombre`) VALUES
+(1, 'ROLE_USER'),
+(2, 'ROLE_ADMIN');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `usuario`
 --
 
 DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE IF NOT EXISTS `usuario` (
-  `usuarioId` int(11) NOT NULL AUTO_INCREMENT,
+  `usuarioid` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) COLLATE latin1_spanish_ci DEFAULT NULL,
   `apellidos` varchar(50) COLLATE latin1_spanish_ci DEFAULT NULL,
   `email` varchar(255) COLLATE latin1_spanish_ci NOT NULL,
-  PRIMARY KEY (`usuarioId`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+  `password` varchar(250) COLLATE latin1_spanish_ci NOT NULL,
+  `username` varchar(30) COLLATE latin1_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`usuarioid`)
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`usuarioId`, `nombre`, `apellidos`, `email`) VALUES
-(1, 'Chad', 'Darby', 'darby@lu2code.com'),
-(2, 'Chad', 'Darby', 'darby@lu2code.com'),
-(3, 'Chad', 'Darby', 'darby@lu2code.com'),
-(4, 'Chad', 'Darby', 'darby@lu2code.com'),
-(5, 'Chad', 'Darby', 'darby@lu2code.com'),
-(6, 'Chad', 'Darby', 'darby@lu2code.com'),
-(7, 'Chad', 'Darby', 'darby@lu2code.com');
+INSERT INTO `usuario` (`usuarioid`, `nombre`, `apellidos`, `email`, `password`, `username`) VALUES
+(10, 'Mister Dummy', NULL, 'dummy@gmail.com', '$2a$10$HYLrovAKwOzgcOf/gTYGy..GzbH8rH8m0hvgJcv5e3yQ3A3.9tP56', 'dummy'),
+
+-- --------------------------------------------------------
 
 --
--- Restricciones para tablas volcadas
+-- Estructura de tabla para la tabla `usuario_rol`
 --
 
+DROP TABLE IF EXISTS `usuario_rol`;
+CREATE TABLE IF NOT EXISTS `usuario_rol` (
+  `usuarioId` int(20) NOT NULL,
+  `rolid` bigint(20) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+
 --
--- Filtros para la tabla `instructor`
+-- Volcado de datos para la tabla `usuario_rol`
 --
-ALTER TABLE `instructor`
-  ADD CONSTRAINT `FK_DETAIL` FOREIGN KEY (`instructor_detail_id`) REFERENCES `instructor_detail` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+INSERT INTO `usuario_rol` (`usuarioId`, `rolid`) VALUES
+(1, 1),
+(2, 2),
+(8, 2),
+(9, 2),
+(10, 2),
+(11, 2);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
